@@ -1,0 +1,96 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Mill Subway Station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.494973, 43.650096]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Humber River Recreational Trail"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.493431, 43.645502]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mimico Creek Path"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.490596, 43.62746]
+      }
+    },
+    {
+      "type": "feature",
+      "properties": {
+        "name": "Humber Bay Park East"
+      },
+      "geometry": {
+        "type": "point",
+        "coordinates": [-79.475545, 43.621687]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Humber Bay Park E Trail"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.476834, 43.626056]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Humber Bay Arch Bridge"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.471163, 43.631939]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sunnyside Broadwalk"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.465031, 43.63569]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.46369, 43.646548]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Runnymede Subway Station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79.475979, 43.651697]
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,131 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="map.css" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
+  <script type="text/javascript">
+    function load() {
+      $.getJSON("canyon.geojson", function(geojson) {
+        var start = L.icon({
+          iconUrl: "https://mt.googleapis.com/vt/icon/name=icons/onion/1371-rec-hiking.png",
+          iconSize: [28, 28],
+          iconAnchor: [20, 20],
+          popupAnchor: [-5, -20]
+        });
+        var end = L.icon({
+          iconUrl: "https://mt.googleapis.com/vt/icon/name=icons/onion/1195-fac-flag.png",
+          iconSize: [28, 28],
+          iconAnchor: [15, 20]
+        });
+        var waypoint = L.divIcon({
+          className: "waypoint"
+        });
+
+        var markers = [
+          L.marker(geojson.features[0].geometry.coordinates.reverse(), { icon: start })
+            .bindPopup("Old Mill Subway Station<br/>Sunday, June 11 5:00 PM<br/>12 km, 4.5 km/h", {
+              closeButton: false,
+              closeOnClick: false
+            }),
+          L.marker(geojson.features[1].geometry.coordinates.reverse(), { icon: waypoint })
+            .bindTooltip("Humber River", {
+              direction: "left",
+              permanent: true
+            }),
+          L.marker(geojson.features[2].geometry.coordinates.reverse(), { icon: waypoint })
+            .bindTooltip("Canyon", {
+              direction: "left",
+              permanent: true
+            }),
+          L.marker(geojson.features[3].geometry.coordinates.reverse(), { icon: waypoint })
+            .bindTooltip("Humber Bay Park", {
+              direction: "right",
+              permanent: true
+            }),
+          L.marker(geojson.features[4].geometry.coordinates.reverse(), { icon: waypoint }),
+          L.marker(geojson.features[5].geometry.coordinates.reverse(), { icon: waypoint }),
+          L.marker(geojson.features[6].geometry.coordinates.reverse(), { icon: waypoint })
+            .bindTooltip("Sunnyside", {
+              direction: "right",
+              permanent: true
+            }),
+          L.marker(geojson.features[7].geometry.coordinates.reverse(), { icon: waypoint })
+            .bindTooltip("High Park", {
+              direction: "right",
+              permanent: true
+            }),
+          L.marker(geojson.features[8].geometry.coordinates.reverse(), { icon: end })
+            .bindTooltip("Runnymede Subway Station", {
+              direction: "right",
+              permanent: true
+            })
+        ];
+        var group = L.featureGroup(markers);
+        var bounds = group.getBounds().pad(.05);
+
+        var map = new L.Map("map");
+        map.addLayer(new L.StamenTileLayer("watercolor", {
+          detectRetina: true
+        }));
+
+        map.fitBounds(bounds);
+        group.addTo(map);
+        markers[0].openPopup();
+
+        var svg = d3.select(map.getPanes().overlayPane).append("svg");
+        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+        var line = d3.svg.line()
+          .interpolate("cardinal")
+          .x(function(d) {
+            return map.latLngToLayerPoint(d).x;
+          })
+          .y(function(d) {
+            return map.latLngToLayerPoint(d).y;
+          });
+        var path = g.append("path")
+          .attr("class", "path");
+
+        function draw(e) {
+          var nw = map.latLngToLayerPoint(bounds.getNorthWest());
+          var se = map.latLngToLayerPoint(bounds.getSouthEast());
+
+          svg.attr("width", se.x - nw.x);
+          svg.attr("height", se.y - nw.y);
+          svg.style("left", nw.x + "px");
+          svg.style("top", nw.y + "px");
+          g.attr("transform", "translate(" + -nw.x + "," + -nw.y + ")");
+
+          path.attr("d", line(markers.map(function(value) {
+            return value.getLatLng();
+          })));
+
+          if (!e) {
+            var length = path.node().getTotalLength();
+            path
+              .attr("stroke-dashoffset", length)
+              .attr("stroke-dasharray", Array(Math.ceil(length / (10 + 2))).join("10 2 ") + "0 " + length)
+              .transition()
+              .duration(5000)
+              .ease("linear")
+              .attr("stroke-dashoffset", 0);
+          }
+          else {
+            path.style("stroke-dasharray", "10 2")
+          }
+        }
+        draw();
+
+        map.on("zoom", draw);
+      });
+    }
+  </script>
+
+</head>
+<body onload="load()">
+<div id="map" class="map"></div>
+</body>
+</html>

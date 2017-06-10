@@ -1,0 +1,31 @@
+.map {
+  width: 480px;
+  height: 480px;
+  margin: 0 0 1em 0;
+}
+.path {
+  fill: none;
+  stroke: grey;
+  stroke-width: 3px;
+}
+.waypoint {
+  background: grey;
+  border-radius: 50%;
+}
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
+  border-radius: 3px;
+  color: grey;
+  background: lightgrey;
+}
+.leaflet-tooltip,
+.leaflet-tooltip-left::before,
+.leaflet-tooltip-right::before {
+  border-radius: 3px;
+  color: grey;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
