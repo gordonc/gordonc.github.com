@@ -32,12 +32,12 @@
       }
     },
     {
-      "type": "feature",
+      "type": "Feature",
       "properties": {
         "name": "Humber Bay Park East"
       },
       "geometry": {
-        "type": "point",
+        "type": "Point",
         "coordinates": [-79.475545, 43.621687]
       }
     },
